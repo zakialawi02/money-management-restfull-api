@@ -1,0 +1,142 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Models\Account;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Dotenv\Util\Str;
+use Illuminate\Support\Facades\Validator;
+
+class AccountController extends Controller
+{
+    public function index()
+    {
+        $accounts = Account::all();
+
+        try {
+            return response()->json([
+                'success' => true,
+                'message' => 'List of all accounts',
+                'data' => $accounts,
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => $th->getMessage(),
+            ], 404);
+        }
+    }
+
+    public function show(String $account_id)
+    {
+        try {
+            $account = Account::findOrFail($account_id);
+            return response()->json([
+                'success' => true,
+                'message' => 'Account details',
+                'data' => $account,
+            ], 200);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Account not found',
+            ], 404);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => $th->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function store(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:100',
+            'balance' => 'numeric',
+            'description' => 'required|string|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors(),
+            ], 400);
+        }
+
+        try {
+            $request->merge(['balance' => $request->balance ?? 0]);
+            $account = Account::create($request->all());
+            return response()->json([
+                'success' => true,
+                'message' => 'Account created successfully',
+                'data' => $account,
+            ], 201);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => $th->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function update(Request $request, String $account_id)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:100',
+            'balance' => 'numeric',
+            'description' => 'string|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors(),
+            ], 400);
+        }
+
+        try {
+            $account = Account::findOrFail($account_id);
+            $account->update($request->all());
+            return response()->json([
+                'success' => true,
+                'message' => 'Account updated successfully',
+                'data' => $account,
+            ], 200);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Account not found',
+            ], 404);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => $th->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function destroy(String $account_id)
+    {
+        try {
+            $account = Account::findOrFail($account_id);
+            $account->delete();
+            return response()->json([
+                'success' => true,
+                'message' => 'Account deleted successfully',
+                'data' => $account,
+            ], 200);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Account not found',
+            ], 404);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => $th->getMessage(),
+            ], 500);
+        }
+    }
+}
