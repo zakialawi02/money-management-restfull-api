@@ -1,10 +1,10 @@
 openapi: 3.0.3
 info:
-  title: laravel-restfull-api
+  title: money-management-api
   version: 1.0.0
   contact: {}
 servers:
-  - url: http://127.0.0.1:800
+  - url: http://127.0.0.1:8000
   - url: http://127.0.0.1
 paths:
   /api/auth/register:
@@ -193,13 +193,13 @@ paths:
               properties:
                 id_user:
                   type: string
-                  example: johndoe123
+                  example: admin
                 password:
                   type: string
-                  example: "12345678"
+                  example: admin
             example:
-              id_user: johndoe123
-              password: "12345678"
+              id_user: admin
+              password: admin
       responses:
         "200":
           description: Success login
@@ -1230,7 +1230,7 @@ paths:
             Date:
               schema:
                 type: string
-                example: Sun, 13 Oct 2024 14:16:05 GMT
+                example: Mon, 14 Oct 2024 15:54:37 GMT
             Host:
               schema:
                 type: string
@@ -1251,89 +1251,41 @@ paths:
                       properties:
                         email:
                           type: string
-                          example: djohnson@example.com
+                          example: admin@mail.com
                         id:
                           type: string
-                          example: 012167b9-a62d-39d9-870c-48934a08ae4b
+                          example: 14beaa9b-37e3-4cfc-ab45-548dd0dc50ac
                         name:
                           type: string
-                          example: Mr. Olaf Brekke
+                          example: Admin User
                         profile_photo_path:
                           type: string
-                          example: http://127.0.0.1:8000/assets/img/profile/user.png
+                          example: http://localhost:8000/assets/img/profile/admin.png
                         role:
                           type: string
-                          example: user
+                          example: admin
                         username:
                           type: string
-                          example: krystel19
+                          example: admin
                     example:
-                      - email: djohnson@example.com
-                        id: 012167b9-a62d-39d9-870c-48934a08ae4b
-                        name: Mr. Olaf Brekke
-                        profile_photo_path: http://127.0.0.1:8000/assets/img/profile/user.png
+                      - email: admin@mail.com
+                        id: 14beaa9b-37e3-4cfc-ab45-548dd0dc50ac
+                        name: Admin User
+                        profile_photo_path: http://localhost:8000/assets/img/profile/admin.png
+                        role: admin
+                        username: admin
+                      - email: user@mail.com
+                        id: 5c896ca1-03c6-42c9-9740-ad9bc43bce62
+                        name: Regular User
+                        profile_photo_path: http://localhost:8000/assets/img/profile/user.png
                         role: user
-                        username: krystel19
-                      - email: flossie.lehner@example.net
-                        id: 046a7fa4-8a4d-3aa5-8245-7238e52a2e2b
-                        name: Jermain Veum
-                        profile_photo_path: http://127.0.0.1:8000/assets/img/profile/user.png
-                        role: user
-                        username: tia48
-                      - email: heathcote.darwin@example.org
-                        id: 05df4310-a493-3c8b-86cf-9b10ec20d510
-                        name: Myrna Mills V
-                        profile_photo_path: http://127.0.0.1:8000/assets/img/profile/user.png
-                        role: user
-                        username: rbechtelar
-                      - email: imayer@example.net
-                        id: 074265cb-0eb5-33c8-8d77-6bfb19278281
-                        name: Aryanna Prohaska
-                        profile_photo_path: http://127.0.0.1:8000/assets/img/profile/user.png
-                        role: user
-                        username: willa.flatley
-                      - email: witting.josiane@example.net
-                        id: 094deb98-e237-3097-bfd4-0298515e7163
-                        name: Prof. Geovany Block
-                        profile_photo_path: http://127.0.0.1:8000/assets/img/profile/user.png
-                        role: user
-                        username: rswaniawski
-                      - email: igleason@example.net
-                        id: 0a105992-559b-3bf0-b78a-45c612fb417a
-                        name: Gayle Kerluke
-                        profile_photo_path: http://127.0.0.1:8000/assets/img/profile/user.png
-                        role: user
-                        username: jerod86
-                      - email: deven.hickle@example.com
-                        id: 0c5a543f-4560-34e6-83f5-aa7f6adab303
-                        name: Guy McGlynn Sr.
-                        profile_photo_path: http://127.0.0.1:8000/assets/img/profile/user.png
-                        role: user
-                        username: stracke.krista
-                      - email: mueller.bradley@example.net
-                        id: 0c914483-dc7c-39f6-acee-99c2f5809a52
-                        name: Modesta Hoeger
-                        profile_photo_path: http://127.0.0.1:8000/assets/img/profile/user.png
-                        role: user
-                        username: gusikowski.shane
-                      - email: dmaggio@example.net
-                        id: 0f602259-b5c1-36f5-9e1e-78dd59e75a1f
-                        name: Jayne Weissnat
-                        profile_photo_path: http://127.0.0.1:8000/assets/img/profile/user.png
-                        role: user
-                        username: nnicolas
-                      - email: crist.florian@example.net
-                        id: 1282167f-be84-3950-b84b-87e5532a94b7
-                        name: Jadyn Wiza
-                        profile_photo_path: http://127.0.0.1:8000/assets/img/profile/user.png
-                        role: user
-                        username: thurman.harber
-                      - email: swaniawski.colin@example.org
-                        id: 149cb084-1c35-33e1-baf1-f4eadad38a01
-                        name: Marcelina Rowe
-                        profile_photo_path: http://127.0.0.1:8000/assets/img/profile/user.png
-                        role: user
-                        username: damion.flatley
+                        username: user
+                      - email: writer@mail.com
+                        id: 9795f37d-efcf-4cbe-b502-f7bf808aed69
+                        name: Writer User
+                        profile_photo_path: http://localhost:8000/assets/img/profile/writer.png
+                        role: writer
+                        username: writer
                   message:
                     type: string
                     example: List of all users
@@ -1344,36 +1296,24 @@ paths:
                 Success:
                   value:
                     data:
-                      - email: djohnson@example.com
-                        id: 012167b9-a62d-39d9-870c-48934a08ae4b
-                        name: Mr. Olaf Brekke
-                        profile_photo_path: http://127.0.0.1:8000/assets/img/profile/user.png
+                      - email: admin@mail.com
+                        id: 14beaa9b-37e3-4cfc-ab45-548dd0dc50ac
+                        name: Admin User
+                        profile_photo_path: http://localhost:8000/assets/img/profile/admin.png
+                        role: admin
+                        username: admin
+                      - email: user@mail.com
+                        id: 5c896ca1-03c6-42c9-9740-ad9bc43bce62
+                        name: Regular User
+                        profile_photo_path: http://localhost:8000/assets/img/profile/user.png
                         role: user
-                        username: krystel19
-                      - email: flossie.lehner@example.net
-                        id: 046a7fa4-8a4d-3aa5-8245-7238e52a2e2b
-                        name: Jermain Veum
-                        profile_photo_path: http://127.0.0.1:8000/assets/img/profile/user.png
-                        role: user
-                        username: tia48
-                      - email: heathcote.darwin@example.org
-                        id: 05df4310-a493-3c8b-86cf-9b10ec20d510
-                        name: Myrna Mills V
-                        profile_photo_path: http://127.0.0.1:8000/assets/img/profile/user.png
-                        role: user
-                        username: rbechtelar
-                      - email: imayer@example.net
-                        id: 074265cb-0eb5-33c8-8d77-6bfb19278281
-                        name: Aryanna Prohaska
-                        profile_photo_path: http://127.0.0.1:8000/assets/img/profile/user.png
-                        role: user
-                        username: willa.flatley
-                      - email: witting.josiane@example.net
-                        id: 094deb98-e237-3097-bfd4-0298515e7163
-                        name: Prof. Geovany Block
-                        profile_photo_path: http://127.0.0.1:8000/assets/img/profile/user.png
-                        role: user
-                        username: rswaniawski
+                        username: user
+                      - email: writer@mail.com
+                        id: 9795f37d-efcf-4cbe-b502-f7bf808aed69
+                        name: Writer User
+                        profile_photo_path: http://localhost:8000/assets/img/profile/writer.png
+                        role: writer
+                        username: writer
                     message: List of all users
                     success: true
         "401":
@@ -1419,4 +1359,232 @@ paths:
                   value:
                     message: Please Login [POST] /api/auth/login
                     success: false
+  /api/v1/users/{id_user}:
+    get:
+      summary: "Get show user "
+      description: "Get show user "
+      operationId: getShowUser
+      responses:
+        "200":
+          description: ""
+    parameters:
+      - name: id_user
+        in: path
+        required: true
+        schema:
+          type: string
+          example: d0456b29-2729-4c96-9d87-48253c1e9c97
+  /api/v1/accounts:
+    get:
+      summary: Get account
+      description: Get account
+      operationId: getAccount
+      requestBody:
+        content:
+          text/plain:
+            example: ""
+      responses:
+        "200":
+          description: ""
+    post:
+      summary: Create account
+      description: Create account
+      operationId: createAccount
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                balance:
+                  type: number
+                  example: 1000000
+                description:
+                  type: string
+                  example: Tabungan untuk masa depan
+                name:
+                  type: string
+                  example: Tabungan
+            example:
+              balance: 1000000
+              description: Tabungan untuk masa depan
+              name: Tabungan
+      responses:
+        "200":
+          description: ""
+  /api/v1/accounts/{id}:
+    get:
+      summary: Get show account
+      description: Get show account
+      operationId: getShowAccount
+      requestBody:
+        content:
+          text/plain:
+            example: ""
+      responses:
+        "200":
+          description: ""
+    delete:
+      summary: Delete account
+      description: Delete account
+      operationId: deleteAccount
+      requestBody:
+        content:
+          text/plain:
+            example: ""
+      responses:
+        "200":
+          description: ""
+    patch:
+      summary: Update account
+      description: Update account
+      operationId: updateAccount
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                description:
+                  type: string
+                  example: Tabungan untuk masa depan
+                name:
+                  type: string
+                  example: Tabungan
+            example:
+              description: Tabungan untuk masa depan
+              name: Tabungan
+      responses:
+        "200":
+          description: ""
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          example: 01ja5hc0rmkbmqft5etj16mr94
+  /api/v1/transactions_category/:
+    get:
+      summary: Get transactions_categories
+      description: Get transactions_categories
+      operationId: getTransactionsCategories
+      requestBody:
+        content:
+          text/plain:
+            example: ""
+      responses:
+        "200":
+          description: ""
+  /api/v1/transactions_category:
+    post:
+      summary: Create transactions_categories
+      description: Create transactions_categories
+      operationId: createTransactionsCategories
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                description:
+                  type: string
+                  example: Pengeluaran untuk makanan sehari-hari
+                name:
+                  type: string
+                  example: Makanan
+            example:
+              description: Pengeluaran untuk makanan sehari-hari
+              name: Makanan
+      responses:
+        "200":
+          description: ""
+  /api/v1/transactions_category/{id}:
+    delete:
+      summary: Delete transactions_categories
+      description: Delete transactions_categories
+      operationId: deleteTransactionsCategories
+      requestBody:
+        content:
+          text/plain:
+            example: ""
+      responses:
+        "200":
+          description: ""
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          example: 01ja5svhfhskdn7hzf3tcxy5rv
+  /api/v1/transactions:
+    get:
+      summary: Get transactions
+      description: Get transactions
+      operationId: getTransactions
+      requestBody:
+        content:
+          text/plain:
+            example: ""
+      responses:
+        "200":
+          description: ""
+    post:
+      summary: transactions (income)
+      description: transactions (income)
+      operationId: transactionsIncome
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                account_id:
+                  type: string
+                  example: 01ja5hcrh8evrky7h8xfmmbeme
+                amount:
+                  type: number
+                  example: 3000000
+                date:
+                  type: string
+                  example: ""
+                description:
+                  type: string
+                  example: Gaji Bulanan
+                transactions_category_id:
+                  type: string
+                  example: 01ja5kefwwjh1ryr0bd7rse75x
+                type:
+                  type: string
+                  example: income
+            example:
+              account_id: 01ja5hcrh8evrky7h8xfmmbeme
+              amount: 3000000
+              date: ""
+              description: Gaji Bulanan
+              transactions_category_id: 01ja5kefwwjh1ryr0bd7rse75x
+              type: income
+      responses:
+        "200":
+          description: ""
+  /api/v1/transactions/{id}:
+    delete:
+      summary: delete transaction
+      description: delete transaction
+      operationId: deleteTransaction
+      requestBody:
+        content:
+          text/plain:
+            example: ""
+      responses:
+        "200":
+          description: ""
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          example: 01ja5skn0zbnzawkxh3ty3gvj4
 tags: []
