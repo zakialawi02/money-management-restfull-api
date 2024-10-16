@@ -5,12 +5,12 @@ namespace App\Http\Controllers\Api;
 use App\Models\Account;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Dotenv\Util\Str;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Validator;
 
 class AccountController extends Controller
 {
-    public function index()
+    public function index(): JsonResponse
     {
         $accounts = Account::all();
 
@@ -28,7 +28,7 @@ class AccountController extends Controller
         }
     }
 
-    public function show(String $account_id)
+    public function show(String $account_id): JsonResponse
     {
         try {
             $account = Account::findOrFail($account_id);
@@ -50,18 +50,19 @@ class AccountController extends Controller
         }
     }
 
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:100',
             'balance' => 'numeric',
-            'description' => 'required|string|max:255',
+            'description' => 'nullable|string|max:255',
         ]);
 
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
-                'message' => $validator->errors(),
+                'message' => 'Validation errors',
+                'error' => $validator->errors(),
             ], 400);
         }
 
@@ -81,7 +82,7 @@ class AccountController extends Controller
         }
     }
 
-    public function update(Request $request, String $account_id)
+    public function update(Request $request, String $account_id): JsonResponse
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:100',
@@ -92,7 +93,8 @@ class AccountController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
-                'message' => $validator->errors(),
+                'message' => 'Validation errors',
+                'error' => $validator->errors(),
             ], 400);
         }
 
@@ -117,7 +119,7 @@ class AccountController extends Controller
         }
     }
 
-    public function destroy(String $account_id)
+    public function destroy(String $account_id): JsonResponse
     {
         try {
             $account = Account::findOrFail($account_id);

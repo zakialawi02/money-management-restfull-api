@@ -7,19 +7,29 @@ use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Models\AccountTransaction;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Validator;
 
 class TransactionController extends Controller
 {
-    public function index()
+    public function index(): JsonResponse
     {
         try {
-            $transactions = Transaction::with('category')->get();
+            $transactions = Transaction::with('category');
+
+            if (request('account_id') && !empty(request('account_id'))) {
+                $transactions = $transactions->whereHas('accountTransactions', function ($query) {
+                    $query->where('account_id', request('account_id'));
+                });
+            }
+
+            $transactions = $transactions->orderBy('date', 'desc')->get();
 
             return response()->json([
                 'success' => true,
                 'message' => 'List of all transactions',
-                'data' => $transactions
+                'data' => $transactions,
+                'length' => $transactions->count(),
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
@@ -29,13 +39,13 @@ class TransactionController extends Controller
         }
     }
 
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         try {
             // Validasi input
             $validator = Validator::make($request->all(), [
                 'date' => 'nullable|date',
-                'description' => 'required|string|max:255',
+                'description' => 'nullable|string|max:255',
                 'amount' => 'required|numeric|gt:0',
                 'type' => 'required|in:income,expense',
                 'transactions_category_id' => 'required|exists:transactions_categories,id',
@@ -110,7 +120,7 @@ class TransactionController extends Controller
     }
 
 
-    public function destroy(String $transaction_id)
+    public function destroy(String $transaction_id): JsonResponse
     {
         try {
             // 1. Temukan transaksi yang akan dihapus

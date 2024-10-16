@@ -7,10 +7,11 @@ use App\Models\TransactionCategory;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\TransactionsCategoryResource;
+use Illuminate\Http\JsonResponse;
 
 class TransactionCategoryController extends Controller
 {
-    public function index()
+    public function index(): JsonResponse
     {
         $categories = TransactionCategory::all();
 
@@ -28,7 +29,7 @@ class TransactionCategoryController extends Controller
         }
     }
 
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:100',
@@ -57,7 +58,7 @@ class TransactionCategoryController extends Controller
         }
     }
 
-    public function destroy(String $category_id)
+    public function destroy(String $category_id): JsonResponse
     {
         try {
             $category = TransactionCategory::findOrFail($category_id);

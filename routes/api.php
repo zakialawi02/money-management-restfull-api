@@ -33,6 +33,20 @@ Route::group(['prefix' => 'auth'], function () {
 
 Route::prefix('v1')->as('api.')->group(function () {
     Route::middleware(['auth:sanctum'])->group(function () {
+        Route::get('/', function () {
+            try {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Welcome to Money Management API',
+                ], 200);
+            } catch (\Throwable $th) {
+                return response()->json([
+                    'success' => false,
+                    'message' => $th->getMessage()
+                ], 500);
+            }
+        })->name('home');
+
         Route::apiResource('users', App\Http\Controllers\Api\UserController::class);
         Route::get('/user', [App\Http\Controllers\Api\UserController::class, 'me'])->name('user');
 
