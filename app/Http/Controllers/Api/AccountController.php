@@ -55,7 +55,7 @@ class AccountController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:100',
             'balance' => 'numeric',
-            'description' => 'nullable|string|max:255',
+            'description' => 'required|string|max:100',
         ]);
 
         if ($validator->fails()) {
@@ -87,7 +87,7 @@ class AccountController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:100',
             'balance' => 'numeric',
-            'description' => 'string|max:255',
+            'description' => 'required|string|max:100',
         ]);
 
         if ($validator->fails()) {
