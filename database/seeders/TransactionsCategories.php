@@ -31,6 +31,14 @@ class TransactionsCategories extends Seeder
                 'description' => 'Transportasi',
             ],
             [
+                'name' => 'Bensin',
+                'description' => 'Bensin',
+            ],
+            [
+                'name' => 'Servis',
+                'description' => 'Servis',
+            ],
+            [
                 'name' => 'Listrik',
                 'description' => 'Tagihan listrik',
             ],
@@ -39,12 +47,60 @@ class TransactionsCategories extends Seeder
                 'description' => 'Pulsa',
             ],
             [
+                'name' => 'Pajak',
+                'description' => 'Pajak',
+            ],
+            [
+                'name' => 'Amal & Donasi',
+                'description' => 'Amal & Donasi',
+            ],
+            [
                 'name' => 'Pembayaran',
                 'description' => 'Pembayaran',
             ],
             [
+                'name' => 'Tagihan',
+                'description' => 'Tagihan',
+            ],
+            [
+                'name' => 'Internet',
+                'description' => 'Internet',
+            ],
+            [
+                'name' => 'Pendidikan',
+                'description' => 'Pendidikan',
+            ],
+            [
                 'name' => 'Hiburan',
                 'description' => 'Hiburan',
+            ],
+            [
+                'name' => 'Belanja',
+                'description' => 'Belanja',
+            ],
+            [
+                'name' => 'Kos',
+                'description' => 'Kos',
+            ],
+            [
+                'name' => 'Laundry',
+                'description' => 'Laundry',
+            ],
+            [
+                'name' => 'Sewa',
+                'description' => 'Sewa',
+            ],
+            [
+                'name' => 'Pinjaman',
+                'description' => 'Pinjaman',
+            ],
+            [
+                'name' => 'Kesehatan',
+                'description' => 'Kesehatan',
+            ],
+            [
+                'name' => 'Top Up',
+                'description' => 'Top Up',
             ],
             [
                 'name' => 'Lainnya',

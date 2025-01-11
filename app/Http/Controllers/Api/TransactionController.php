@@ -22,7 +22,16 @@ class TransactionController extends Controller
                 $transactions = $transactions->whereHas('accountTransactions', function ($query) {
                     $query->where('account_id', request('account_id'));
                 });
+                if ($transactions->count() == 0) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Account ID not found',
+                    ], 404);
+                }
+            } else {
+                throw new \Exception('Account ID is required/missing');
             }
+
 
             if (request('date') && !empty(request('date'))) {
                 $date = \Carbon\Carbon::createFromFormat('Y-m', request('date'));
@@ -43,19 +52,42 @@ class TransactionController extends Controller
 
             $totalIncome = 0;
             $totalExpense = 0;
+            $dailyExpense = [];
+
+            $sevenDaysAgo = \Carbon\Carbon::now()->subDays(7);
+            $dates = [];
+
+            for ($i = 0; $i < 7; $i++) {
+                $date = \Carbon\Carbon::now()->subDays(6 - $i)->format('Y-m-d');
+                $dates[$date] = 0;
+            }
 
             foreach ($transactions as $transaction) {
                 if ($transaction->type === 'income') {
                     $totalIncome += $transaction->amount;
                 } else if ($transaction->type === 'expense') {
                     $totalExpense += $transaction->amount;
+
+                    $date = $transaction->date->format('Y-m-d');
+                    if ($transaction->date >= $sevenDaysAgo) {
+                        $dates[$date] += $transaction->amount;
+                    }
                 }
             }
+
+            $dailyExpense = $dates;
+            $weeklyExpense = array_sum($dailyExpense);
 
             return response()->json([
                 'success' => true,
                 'message' => 'List of all transactions',
-                'total_amount' => ['income' => $totalIncome, 'expense' => $totalExpense, 'total' => $totalIncome - $totalExpense],
+                'total_amount' => [
+                    'income' => $totalIncome,
+                    'expense' => $totalExpense,
+                    'total' => $totalIncome - $totalExpense,
+                    'daily_expense' => $dailyExpense,
+                    'weekly_expense' => $weeklyExpense
+                ],
                 'data' => $transactions,
                 'length' => $transactions->count(),
             ], 200);
@@ -66,6 +98,8 @@ class TransactionController extends Controller
             ], 500);
         }
     }
+
+
 
     public function store(Request $request): JsonResponse
     {

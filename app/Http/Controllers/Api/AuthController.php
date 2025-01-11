@@ -33,7 +33,7 @@ class AuthController extends Controller
         }
 
         $user = Auth::user();
-        $user->tokens()->delete();
+
         $token = $user->createToken('authToken')->plainTextToken;
 
         return response()->json([
