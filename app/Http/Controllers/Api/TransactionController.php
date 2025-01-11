@@ -32,7 +32,6 @@ class TransactionController extends Controller
                 throw new \Exception('Account ID is required/missing');
             }
 
-
             if (request('date') && !empty(request('date'))) {
                 $date = \Carbon\Carbon::createFromFormat('Y-m', request('date'));
                 $transactions->whereYear('date', $date->format('Y'))->whereMonth('date', $date->format('m'));
@@ -54,11 +53,16 @@ class TransactionController extends Controller
             $totalExpense = 0;
             $dailyExpense = [];
 
-            $sevenDaysAgo = \Carbon\Carbon::now()->subDays(7);
+            // Get the start of the current week (Monday)
+            $startOfWeek = \Carbon\Carbon::now()->startOfWeek(\Carbon\Carbon::MONDAY);
+
+            // Get the end of the current week (Sunday)
+            $endOfWeek = \Carbon\Carbon::now()->endOfWeek(\Carbon\Carbon::SUNDAY);
+
             $dates = [];
 
             for ($i = 0; $i < 7; $i++) {
-                $date = \Carbon\Carbon::now()->subDays(6 - $i)->format('Y-m-d');
+                $date = $startOfWeek->copy()->addDays($i)->format('Y-m-d');
                 $dates[$date] = 0;
             }
 
@@ -69,7 +73,8 @@ class TransactionController extends Controller
                     $totalExpense += $transaction->amount;
 
                     $date = $transaction->date->format('Y-m-d');
-                    if ($transaction->date >= $sevenDaysAgo) {
+                    // Only track expenses that occurred within the current week (Monday-Sunday)
+                    if ($transaction->date >= $startOfWeek && $transaction->date <= $endOfWeek) {
                         $dates[$date] += $transaction->amount;
                     }
                 }
@@ -98,6 +103,7 @@ class TransactionController extends Controller
             ], 500);
         }
     }
+
 
 
 
