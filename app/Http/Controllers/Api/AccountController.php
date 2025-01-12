@@ -5,26 +5,29 @@ namespace App\Http\Controllers\Api;
 use App\Models\Account;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class AccountController extends Controller
 {
     public function index(): JsonResponse
     {
-        $accounts = Account::all();
-
         try {
+            // Ambil akun milik user yang sedang login
+            $accounts = User::find(Auth::id())->accounts;
+
             return response()->json([
                 'success' => true,
-                'message' => 'List of all accounts',
+                'message' => 'List of user accounts',
                 'data' => $accounts,
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
                 'success' => false,
                 'message' => $th->getMessage(),
-            ], 404);
+            ], 500); // Gunakan kode 500 untuk server error
         }
     }
 

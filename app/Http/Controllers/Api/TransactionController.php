@@ -9,6 +9,7 @@ use Illuminate\Http\JsonResponse;
 use App\Models\AccountTransaction;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class TransactionController extends Controller
@@ -22,12 +23,6 @@ class TransactionController extends Controller
                 $transactions = $transactions->whereHas('accountTransactions', function ($query) {
                     $query->where('account_id', request('account_id'));
                 });
-                if ($transactions->count() == 0) {
-                    return response()->json([
-                        'success' => false,
-                        'message' => 'Account ID not found',
-                    ], 404);
-                }
             } else {
                 throw new \Exception('Account ID is required/missing');
             }
@@ -105,8 +100,6 @@ class TransactionController extends Controller
     }
 
 
-
-
     public function store(Request $request): JsonResponse
     {
         try {
@@ -137,6 +130,13 @@ class TransactionController extends Controller
             $account = null;
 
             DB::transaction(function () use ($validatedData, &$transaction, &$accountTransaction, &$account) {
+                // Cek apakah akun yang dipilih milik pengguna yang sedang login
+                $account = Auth::user()->accounts()->find($validatedData['account_id']);
+
+                if (!$account) {
+                    throw new \Exception("The selected account does not belong to the logged-in user.");
+                }
+
                 // 1. Simpan transaksi baru di tabel 'transactions'
                 $transaction = Transaction::create([
                     'date' => $validatedData['date'],
@@ -189,6 +189,7 @@ class TransactionController extends Controller
         }
     }
 
+
     public function destroy(String $transaction_id): JsonResponse
     {
         try {
@@ -207,10 +208,15 @@ class TransactionController extends Controller
                     throw new \Exception('No account transactions found for this transaction');
                 }
 
-                // 3. Update saldo akun yang terlibat sebelum menghapus transaksi
+                // 3. Pastikan setiap akun terkait milik pengguna yang sedang login
                 foreach ($accountTransactions as $accountTransaction) {
-                    $account = Account::where('id', $accountTransaction->account_id)->lockForUpdate()->first();
+                    $account = Auth::user()->accounts()->find($accountTransaction->account_id);
 
+                    if (!$account) {
+                        throw new \Exception('Unauthorized access to account. The account does not belong to the logged-in user.');
+                    }
+
+                    // 4. Update saldo akun yang terlibat sebelum menghapus transaksi
                     if ($transaction->type === 'income') {
                         // Kurangi saldo jika ini transaksi pemasukan (karena transaksi dihapus)
                         $account->balance -= $accountTransaction->amount;
@@ -224,7 +230,7 @@ class TransactionController extends Controller
                     $updatedAccounts[] = $account;
                 }
 
-                // 4. Hapus transaksi dari tabel 'transactions'
+                // 5. Hapus transaksi dari tabel 'transactions'
                 $transaction->delete();
             });
 
@@ -245,7 +251,7 @@ class TransactionController extends Controller
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Transaction or Account not found',
+                'message' => 'Transaction not found',
             ], 404);
         } catch (\Throwable $th) {
             return response()->json([

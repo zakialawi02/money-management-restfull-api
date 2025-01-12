@@ -25,4 +25,9 @@ class Account extends Model
     {
         return $this->hasMany(Transaction::class);
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'account_user', 'account_id', 'user_id')->withTimestamps();
+    }
 }
