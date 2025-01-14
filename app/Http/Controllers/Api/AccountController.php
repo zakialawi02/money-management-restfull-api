@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Account;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\AccountUser;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
@@ -72,10 +73,15 @@ class AccountController extends Controller
         try {
             $request->merge(['balance' => $request->balance ?? 0]);
             $account = Account::create($request->all());
+            AccountUser::create([
+                'account_id' => $account->id,
+                'user_id' => Auth::id(),
+            ]);
+            // $account['user'] = [$account->users];
             return response()->json([
                 'success' => true,
                 'message' => 'Account created successfully',
-                'data' => $account,
+                'data' => $account->load('users'),
             ], 201);
         } catch (\Throwable $th) {
             return response()->json([

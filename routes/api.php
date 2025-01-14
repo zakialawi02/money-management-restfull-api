@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PDFExportController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'auth'], function () {
@@ -53,6 +54,7 @@ Route::prefix('v1')->as('api.')->group(function () {
         Route::apiResource('accounts', App\Http\Controllers\Api\AccountController::class);
         Route::apiResource('transactions_category', App\Http\Controllers\Api\TransactionCategoryController::class)->except(['show', 'update']);
         Route::apiResource('transactions', App\Http\Controllers\Api\TransactionController::class);
+        Route::get('/account/{accountId}/report/download', [PDFExportController::class, 'exportPDFReport'])->name('account.report.download');
     });
 
     Route::middleware(['auth:sanctum'])->group(function () {
