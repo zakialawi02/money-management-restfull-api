@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
 
 class TransactionController extends Controller
@@ -258,6 +259,89 @@ class TransactionController extends Controller
                 'success' => false,
                 'message' => 'An error occurred while deleting the transaction',
                 'error' => $th->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function generateEncryptedShareUrl(Request $request)
+    {
+        try {
+            $user_id = $request->user_id;
+            $account_id = $request->account_id;
+            $date = $request->date;
+            $data = json_encode(['user_id' => $user_id, 'account_id' => $account_id, 'date' => $date]);
+            $encrypted = Crypt::encrypt($data);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Encrypted URL generated successfully',
+                'data' => [
+                    'encryptedUrl' => $encrypted,
+                ]
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => $th->getMessage(),
+            ]);
+        }
+    }
+
+    public function streamReportEncrypted(string $encryptedData): JsonResponse
+    {
+        try {
+            $decrypted = Crypt::decrypt($encryptedData);
+            $data = json_decode($decrypted, true);
+            $user_id = $data['user_id'];
+            $account_id = $data['account_id'];
+            $date = $data['date'] ?? null;
+
+            $user = User::findOrFail($user_id);
+            $account = Account::findOrFail($account_id);
+            $transactions = Transaction::with('category')
+                ->whereHas('accountTransactions', function ($query) use ($account_id) {
+                    $query->where('account_id', $account_id);
+                });
+
+            if ($date) {
+                $date = \Carbon\Carbon::createFromFormat('Y-m', $date);
+                $transactions->whereYear('date', $date->format('Y'))->whereMonth('date', $date->format('m'));
+            } else {
+                $transactions->whereYear('date', now()->format('Y'))->whereMonth('date', now()->format('m'));
+            }
+
+            $transactions = $transactions->orderBy('date', 'desc')
+                ->orderBy('created_at', 'desc')
+                ->get();
+
+            $totalIncome = 0;
+            $totalExpense = 0;
+            foreach ($transactions as $transaction) {
+                if ($transaction->type === 'income') {
+                    $totalIncome += $transaction->amount;
+                } else if ($transaction->type === 'expense') {
+                    $totalExpense += $transaction->amount;
+                }
+            }
+            return response()->json([
+                'success' => true,
+                'message' => 'Stream report',
+                'data' => [
+                    'date' => $date,
+                    'user' => $user,
+                    'account' => $account,
+                    'total_amount' => [
+                        'income' => $totalIncome,
+                        'expense' => $totalExpense,
+                        'total' => $totalIncome - $totalExpense,
+                    ],
+                    'transactions' => $transactions
+                ]
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => $th->getMessage(),
             ], 500);
         }
     }

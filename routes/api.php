@@ -56,7 +56,10 @@ Route::prefix('v1')->as('api.')->group(function () {
         Route::apiResource('transactions_category', App\Http\Controllers\Api\TransactionCategoryController::class)->except(['show', 'update']);
         Route::apiResource('transactions', App\Http\Controllers\Api\TransactionController::class);
         Route::get('/account/{accountId}/report/download', [PDFExportController::class, 'exportPDFReport'])->name('account.report.download');
+
+        Route::post('/get-streams-url', [TransactionController::class, 'generateEncryptedShareUrl'])->name('stream.report.url');
     });
 
-    Route::get('/stream-report/{userId}/{accountId}/{date?}', [TransactionController::class, 'streamReport'])->name('stream.report');
+    Route::get('/stream-report/{encryptedUrl}', [TransactionController::class, 'streamReportEncrypted'])->name('stream.report');
+    // Route::get('/stream-report/{userId}/{accountId}/{date?}', [TransactionController::class, 'streamReport'])->name('stream.report');
 });
