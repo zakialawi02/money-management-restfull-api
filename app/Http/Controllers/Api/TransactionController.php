@@ -9,6 +9,7 @@ use Illuminate\Http\JsonResponse;
 use App\Models\AccountTransaction;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -189,7 +190,6 @@ class TransactionController extends Controller
         }
     }
 
-
     public function destroy(String $transaction_id): JsonResponse
     {
         try {
@@ -258,6 +258,58 @@ class TransactionController extends Controller
                 'success' => false,
                 'message' => 'An error occurred while deleting the transaction',
                 'error' => $th->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function streamReport(string $user_id, string $account_id, string $date): JsonResponse
+    {
+        try {
+            $user = User::findOrFail($user_id);
+            $account = Account::findOrFail($account_id);
+            $transactions = Transaction::with('category')
+                ->whereHas('accountTransactions', function ($query) use ($account_id) {
+                    $query->where('account_id', $account_id);
+                });
+
+            if ($date) {
+                $date = \Carbon\Carbon::createFromFormat('Y-m', $date);
+                $transactions->whereYear('date', $date->format('Y'))->whereMonth('date', $date->format('m'));
+            } else {
+                $transactions->whereYear('date', now()->format('Y'))->whereMonth('date', now()->format('m'));
+            }
+
+            $transactions = $transactions->orderBy('date', 'desc')
+                ->orderBy('created_at', 'desc')
+                ->get();
+
+            $totalIncome = 0;
+            $totalExpense = 0;
+            foreach ($transactions as $transaction) {
+                if ($transaction->type === 'income') {
+                    $totalIncome += $transaction->amount;
+                } else if ($transaction->type === 'expense') {
+                    $totalExpense += $transaction->amount;
+                }
+            }
+            return response()->json([
+                'success' => true,
+                'message' => 'Stream report',
+                'data' => [
+                    'user' => $user,
+                    'account' => $account,
+                    'total_amount' => [
+                        'income' => $totalIncome,
+                        'expense' => $totalExpense,
+                        'total' => $totalIncome - $totalExpense,
+                    ],
+                    'transactions' => $transactions
+                ]
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => $th->getMessage(),
             ], 500);
         }
     }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\TransactionController;
 use App\Http\Controllers\PDFExportController;
 use Illuminate\Support\Facades\Route;
 
@@ -57,7 +58,5 @@ Route::prefix('v1')->as('api.')->group(function () {
         Route::get('/account/{accountId}/report/download', [PDFExportController::class, 'exportPDFReport'])->name('account.report.download');
     });
 
-    Route::middleware(['auth:sanctum'])->group(function () {
-        //
-    });
+    Route::get('/stream-report/{userId}/{accountId}/{date?}', [TransactionController::class, 'streamReport'])->name('stream.report');
 });
