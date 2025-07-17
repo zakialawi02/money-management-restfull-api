@@ -28,3 +28,11 @@ Contributions are welcome! If you find a bug or have a suggestion, please open a
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Support and Donations
+
+If you find this project useful and would like to support its further development, you can make a donation via the following platforms:
+
+https://ko-fi.com/zakialawi
+
+Every contribution you make is greatly appreciated. Thank you!
