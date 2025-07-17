@@ -101,21 +101,18 @@ class TransactionController extends Controller
         }
     }
 
-
     public function store(Request $request): JsonResponse
     {
         try {
-            // Validasi input
             $validator = Validator::make($request->all(), [
                 'date' => 'nullable|date',
                 'description' => 'nullable|string|max:255',
                 'amount' => 'required|numeric|gt:0',
                 'type' => 'required|in:income,expense',
                 'transactions_category_id' => 'required|exists:transactions_categories,id',
-                'account_id' => 'required|exists:accounts,id', // Id akun yang terlibat
+                'account_id' => 'required|exists:accounts,id',
             ]);
 
-            // Jika validasi gagal
             if ($validator->fails()) {
                 return response()->json([
                     'success' => false,
@@ -132,14 +129,14 @@ class TransactionController extends Controller
             $account = null;
 
             DB::transaction(function () use ($validatedData, &$transaction, &$accountTransaction, &$account) {
-                // Cek apakah akun yang dipilih milik pengguna yang sedang login
-                $account = Auth::user()->accounts()->find($validatedData['account_id']);
+                // Pastikan akun milik user login
+                $account = Auth::user()->accounts()->lockForUpdate()->find($validatedData['account_id']);
 
                 if (!$account) {
                     throw new \Exception("The selected account does not belong to the logged-in user.");
                 }
 
-                // 1. Simpan transaksi baru di tabel 'transactions'
+                // Simpan transaksi
                 $transaction = Transaction::create([
                     'date' => $validatedData['date'],
                     'description' => $validatedData['description'],
@@ -148,27 +145,26 @@ class TransactionController extends Controller
                     'transactions_category_id' => $validatedData['transactions_category_id'],
                 ]);
 
-                // 2. Simpan catatan di tabel 'account_transactions' yang menghubungkan transaksi dengan akun
+                // Hitung saldo akhir
+                $lastBalance = $account->balance;
+                $endingBalance = $validatedData['type'] === 'income'
+                    ? $lastBalance + $validatedData['amount']
+                    : $lastBalance - $validatedData['amount'];
+
+                // Simpan relasi akun-transaksi
                 $accountTransaction = AccountTransaction::create([
                     'date' => $validatedData['date'],
-                    'amount' => $validatedData['amount'], // Jumlah transaksi yang mempengaruhi akun
-                    'account_id' => $validatedData['account_id'], // Akun terkait
-                    'transaction_id' => $transaction->id, // ID transaksi yang baru dibuat
+                    'amount' => $validatedData['amount'],
+                    'ending_balance' => $endingBalance,
+                    'account_id' => $validatedData['account_id'],
+                    'transaction_id' => $transaction->id,
                 ]);
 
-                // 3. Update saldo akun terkait dengan locking
-                $account = Account::where('id', $validatedData['account_id'])->lockForUpdate()->first();
-
-                if ($validatedData['type'] === 'income') {
-                    $account->balance += $validatedData['amount']; // Tambah saldo jika pemasukan
-                } else {
-                    $account->balance -= $validatedData['amount']; // Kurangi saldo jika pengeluaran
-                }
-
+                // Update saldo akun
+                $account->balance = $endingBalance;
                 $account->save();
             });
 
-            // Response JSON sesuai permintaan
             return response()->json([
                 'success' => true,
                 'message' => 'Transaction created successfully',
@@ -180,6 +176,7 @@ class TransactionController extends Controller
                     'description' => $transaction->description,
                     'category' => $transaction->category,
                     'account' => $accountTransaction->account,
+                    'ending_balance' => $accountTransaction->ending_balance,
                 ]
             ], 201);
         } catch (\Throwable $th) {
@@ -196,46 +193,35 @@ class TransactionController extends Controller
         try {
             $transaction = null;
             $accountTransactions = null;
-            $updatedAccounts = [];
 
-            DB::transaction(function () use ($transaction_id, &$transaction, &$accountTransactions, &$updatedAccounts) {
-                // 1. Temukan transaksi yang akan dihapus
+            DB::transaction(function () use ($transaction_id, &$transaction, &$accountTransactions) {
                 $transaction = Transaction::findOrFail($transaction_id);
-
-                // 2. Temukan semua entri terkait di 'account_transactions'
                 $accountTransactions = AccountTransaction::where('transaction_id', $transaction->id)->get();
 
                 if ($accountTransactions->isEmpty()) {
                     throw new \Exception('No account transactions found for this transaction');
                 }
 
-                // 3. Pastikan setiap akun terkait milik pengguna yang sedang login
                 foreach ($accountTransactions as $accountTransaction) {
-                    $account = Auth::user()->accounts()->find($accountTransaction->account_id);
+                    $account = Auth::user()->accounts()->lockForUpdate()->find($accountTransaction->account_id);
 
                     if (!$account) {
-                        throw new \Exception('Unauthorized access to account. The account does not belong to the logged-in user.');
+                        throw new \Exception('Unauthorized access to account.');
                     }
 
-                    // 4. Update saldo akun yang terlibat sebelum menghapus transaksi
+                    // Update saldo akun
                     if ($transaction->type === 'income') {
-                        // Kurangi saldo jika ini transaksi pemasukan (karena transaksi dihapus)
                         $account->balance -= $accountTransaction->amount;
-                    } else if ($transaction->type === 'expense') {
-                        // Tambah saldo jika ini transaksi pengeluaran (karena transaksi dihapus)
+                    } elseif ($transaction->type === 'expense') {
                         $account->balance += $accountTransaction->amount;
                     }
 
-                    // Simpan saldo yang sudah diperbarui
                     $account->save();
-                    $updatedAccounts[] = $account;
                 }
 
-                // 5. Hapus transaksi dari tabel 'transactions'
                 $transaction->delete();
             });
 
-            // Response JSON sesuai permintaan
             return response()->json([
                 'success' => true,
                 'message' => 'Transaction deleted successfully',
@@ -246,7 +232,6 @@ class TransactionController extends Controller
                     'amount' => $transaction->amount,
                     'description' => $transaction->description,
                     'category' => $transaction->category,
-                    'updated_accounts' => $updatedAccounts
                 ]
             ], 200);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {

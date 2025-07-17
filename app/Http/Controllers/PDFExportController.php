@@ -2,46 +2,65 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Account;
 use App\Models\Transaction;
-use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Auth;
 
 class PDFExportController extends Controller
 {
     public function exportPDFReport(string $accountId)
     {
-
         try {
-            $pocketAccount = Account::findOrFail($accountId);
-            $transactions = Transaction::with('category');
+            // Validasi akun milik user
+            $account = Auth::user()->accounts()->findOrFail($accountId);
 
-            if (request('date') && !empty(request('date'))) {
-                $date = \Carbon\Carbon::createFromFormat('Y-m', request('date'));
-                $transactions->whereYear('date', $date->format('Y'))->whereMonth('date', $date->format('m'));
+            $requestedDate = request('date');
+
+            // Ambil transaksi milik akun tersebut
+            $transactions = Transaction::with('category')
+                ->whereHas('accountTransactions', function ($query) use ($accountId) {
+                    $query->where('account_id', $accountId);
+                });
+
+            if ($requestedDate && !empty($requestedDate)) {
+                $date = \Carbon\Carbon::createFromFormat('Y-m', $requestedDate);
+                $transactions->whereYear('date', $date->year)
+                    ->whereMonth('date', $date->month);
             }
 
-            $transactions = $transactions->orderBy('date', 'desc')
+            $monthlyEndingBalance = null;
+
+            if ($requestedDate) {
+                $date = \Carbon\Carbon::createFromFormat('Y-m', $requestedDate);
+
+                $lastTxn = \App\Models\AccountTransaction::where('account_id', $accountId)
+                    ->whereYear('date', $date->year)
+                    ->whereMonth('date', $date->month)
+                    ->orderBy('date', 'desc')
+                    ->orderBy('created_at', 'desc')
+                    ->first();
+
+                $monthlyEndingBalance = $lastTxn?->ending_balance;
+            }
+
+
+            $transactions = $transactions->orderBy('date', 'asc')
                 ->orderBy('created_at', 'desc')
                 ->get();
 
-            $totalIncome = 0;
-            $totalExpense = 0;
-
-            foreach ($transactions as $transaction) {
-                if ($transaction->type === 'income') {
-                    $totalIncome += $transaction->amount;
-                } else if ($transaction->type === 'expense') {
-                    $totalExpense += $transaction->amount;
-                }
-            }
+            // Hitung total pemasukan/pengeluaran
+            $totalIncome = $transactions->where('type', 'income')->sum('amount');
+            $totalExpense = $transactions->where('type', 'expense')->sum('amount');
 
             $data = [
-                'title' => 'Transaction Report on ' . $pocketAccount->name,
-                'date' => request('date') ? \Carbon\Carbon::createFromFormat('Y-m', request('date'))->format('F Y') : 'All Time',
-                'pocket' => $pocketAccount,
+                'title' => 'Transaction Report on ' . $account->name,
+                'date' => $requestedDate
+                    ? \Carbon\Carbon::createFromFormat('Y-m', $requestedDate)->format('F Y')
+                    : 'All Time',
+                'pocket' => $account,
                 'total_amount' => [
-                    'balance' => $pocketAccount->balance,
+                    'balance' => $account->balance,
+                    'balance_end' => $monthlyEndingBalance ?? 'N/A',
                     'income' => $totalIncome,
                     'expense' => $totalExpense,
                     'total' => $totalIncome - $totalExpense,
@@ -49,8 +68,8 @@ class PDFExportController extends Controller
                 'data' => $transactions,
                 'length' => $transactions->count(),
             ];
-            // return $data;
 
+            // Generate PDF
             $pdf = Pdf::loadView('PDFView.reportTransaction', $data)->setPaper('a4', 'portrait');
 
             return response()->streamDownload(function () use ($pdf) {

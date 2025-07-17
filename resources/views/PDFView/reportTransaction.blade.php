@@ -61,7 +61,7 @@
             <p style="font-weight: bold; margin: 0;">
                 Transaction on {{ $date }}
             </p>
-            <p>Total Expense: Rp {{ number_format($total_amount['expense'], 0, ',', '.') }}</p>
+            <p>Total Expense: {{ $total_amount['expense'] < 0 ? '-' : '' }}Rp {{ number_format(abs($total_amount['expense']), 0, ',', '.') }}</p>
 
             <div style="padding: 10px; margin-top: 20px; margin-bottom: 20px">
                 <table>
@@ -90,15 +90,27 @@
 
                         <tr style="font-weight: bold;">
                             <td class="text-left" colspan="2">Total Income</td>
-                            <td class="text-left" colspan="2">Rp {{ number_format($total_amount['income'], 0, ',', '.') }}</td>
+                            <td class="text-left" colspan="2">
+                                {{ $total_amount['income'] < 0 ? '-' : '' }}Rp {{ number_format(abs($total_amount['income']), 0, ',', '.') }}
+                            </td>
                         </tr>
                         <tr style="font-weight: bold;">
                             <td class="text-left" colspan="2">Total Expense</td>
-                            <td class="text-left" colspan="2">Rp {{ number_format($total_amount['expense'], 0, ',', '.') }}</td>
+                            <td class="text-left" colspan="2">
+                                {{ $total_amount['expense'] < 0 ? '-' : '' }}Rp {{ number_format(abs($total_amount['expense']), 0, ',', '.') }}
+                            </td>
                         </tr>
                         <tr style="font-weight: bold;">
                             <td class="text-left" colspan="2">Profit</td>
-                            <td class="text-left" style="color: {{ $total_amount['total'] < 0 ? 'red' : 'green' }}" colspan="2">{{ $total_amount['total'] < 0 ? '-' : '' }}Rp {{ number_format(abs($total_amount['total']), 0, ',', '.') }}</td>
+                            <td class="text-left" style="color: {{ $total_amount['total'] < 0 ? 'red' : 'green' }}" colspan="2">
+                                {{ $total_amount['total'] < 0 ? '-' : '' }}Rp {{ number_format(abs($total_amount['total']), 0, ',', '.') }}
+                            </td>
+                        </tr>
+                        <tr style="font-weight: bold;">
+                            <td class="text-left" colspan="2">Final balance</td>
+                            <td class="text-left" style="color: {{ $total_amount['balance_end'] < 0 ? 'red' : 'green' }}" colspan="2">
+                                {{ $total_amount['balance_end'] < 0 ? '-' : '' }}Rp {{ number_format(abs($total_amount['balance_end']), 0, ',', '.') }}
+                            </td>
                         </tr>
                     </tbody>
                 </table>

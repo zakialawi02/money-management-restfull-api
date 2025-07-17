@@ -15,6 +15,7 @@ class AccountTransaction extends Model
         'account_id',
         'transaction_id',
         'amount',
+        'ending_balance',
         'date',
     ];
 
