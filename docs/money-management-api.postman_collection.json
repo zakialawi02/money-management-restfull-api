@@ -1779,6 +1779,18 @@
 		},
 		{
 			"name": "Get account",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -1859,7 +1871,8 @@
 					"variable": [
 						{
 							"key": "id",
-							"value": "01ja5hcrh8evrky7h8xfmmbeme"
+							"value": "01janf43gzs3d2y241r5pr84cp",
+							"description": "id account"
 						}
 					]
 				}
@@ -1921,7 +1934,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Tabungan\",\r\n    \"description\": \"Tabungan untuk masa depan\"\r\n}\r\n",
+					"raw": "{\r\n    \"name\": \"Tabungan2\",\r\n    \"description\": \"Tabungan untuk masa depan\"\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -1942,7 +1955,7 @@
 					"variable": [
 						{
 							"key": "id",
-							"value": "01ja5hcrh8evrky7h8xfmmbeme"
+							"value": "01k0ee6zb7eeze4pyfrgv4e8w9"
 						}
 					]
 				}
@@ -1987,7 +2000,7 @@
 					"variable": [
 						{
 							"key": "id",
-							"value": "01ja5hc0rmkbmqft5etj16mr94"
+							"value": "01k0ee70hkzzpfbbjjq0hfj8f6"
 						}
 					]
 				}
@@ -2147,7 +2160,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{base_url}}/api/v1/transactions",
+					"raw": "{{base_url}}/api/v1/transactions?account_id=01janf43gzs3d2y241r5pr84cp&date=2025-07&type&transactions_category_id",
 					"host": [
 						"{{base_url}}"
 					],
@@ -2155,13 +2168,118 @@
 						"api",
 						"v1",
 						"transactions"
+					],
+					"query": [
+						{
+							"key": "account_id",
+							"value": "01janf43gzs3d2y241r5pr84cp"
+						},
+						{
+							"key": "date",
+							"value": "2025-07",
+							"description": "optional"
+						},
+						{
+							"key": "type",
+							"value": null,
+							"description": "optional"
+						},
+						{
+							"key": "transactions_category_id",
+							"value": null,
+							"description": "optional"
+						}
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Success: Get transactions",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/transactions?account_id=01janf43gzs3d2y241r5pr84cp&date=2025-07&type&transactions_category_id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"transactions"
+							],
+							"query": [
+								{
+									"key": "account_id",
+									"value": "01janf43gzs3d2y241r5pr84cp"
+								},
+								{
+									"key": "date",
+									"value": "2025-07",
+									"description": "optional"
+								},
+								{
+									"key": "type",
+									"value": null,
+									"description": "optional"
+								},
+								{
+									"key": "transactions_category_id",
+									"value": null,
+									"description": "optional"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8000"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.17"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 17 Jul 2025 14:05:00 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"success\": true,\n    \"message\": \"List of all transactions\",\n    \"total_amount\": {\n        \"income\": 1000000,\n        \"expense\": 215000,\n        \"total\": 785000,\n        \"daily_expense\": {\n            \"2025-07-14\": 20000,\n            \"2025-07-15\": 0,\n            \"2025-07-16\": 0,\n            \"2025-07-17\": 50000,\n            \"2025-07-18\": 0,\n            \"2025-07-19\": 0,\n            \"2025-07-20\": 0\n        },\n        \"weekly_expense\": 70000\n    },\n    \"data\": [\n        {\n            \"id\": \"01k0cb60rc92swdxy9e8h6vs3a\",\n            \"date\": \"2025-07-17T00:00:00.000000Z\",\n            \"description\": null,\n            \"amount\": 50000,\n            \"type\": \"expense\",\n            \"transactions_category_id\": \"01janeyxtaxf5bgvcvwy3y57w0\",\n            \"created_at\": \"2025-07-17T14:04:01.000000Z\",\n            \"updated_at\": \"2025-07-17T14:04:01.000000Z\",\n            \"category\": {\n                \"id\": \"01janeyxtaxf5bgvcvwy3y57w0\",\n                \"name\": \"Uang Keluar\",\n                \"description\": \"Uang keluar dari rekening\",\n                \"color\": \"#CC0909\",\n                \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n            }\n        },\n        {\n            \"id\": \"01k08g4e2ksrhwdgekn00ex3xv\",\n            \"date\": \"2025-07-16T00:00:00.000000Z\",\n            \"description\": null,\n            \"amount\": 1000000,\n            \"type\": \"income\",\n            \"transactions_category_id\": \"01janeyxqq2ta0pnz1eh6395jb\",\n            \"created_at\": \"2025-07-16T09:13:34.000000Z\",\n            \"updated_at\": \"2025-07-16T09:13:34.000000Z\",\n            \"category\": {\n                \"id\": \"01janeyxqq2ta0pnz1eh6395jb\",\n                \"name\": \"Uang Masuk\",\n                \"description\": \"Uang masuk ke rekening\",\n                \"color\": \"#00CC06\",\n                \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n            }\n        },\n        {\n            \"id\": \"01k02z565gmz6yhs2wsb8x406x\",\n            \"date\": \"2025-07-14T00:00:00.000000Z\",\n            \"description\": null,\n            \"amount\": 20000,\n            \"type\": \"expense\",\n            \"transactions_category_id\": \"01janeyyp3h87080a70r6yna5a\",\n            \"created_at\": \"2025-07-14T05:40:41.000000Z\",\n            \"updated_at\": \"2025-07-14T05:40:41.000000Z\",\n            \"category\": {\n                \"id\": \"01janeyyp3h87080a70r6yna5a\",\n                \"name\": \"Hiburan\",\n                \"description\": \"Hiburan\",\n                \"color\": \"#0BF0C8\",\n                \"created_at\": \"2024-10-20T17:17:54.000000Z\",\n                \"updated_at\": \"2024-10-20T17:17:54.000000Z\"\n            }\n        },\n        {\n            \"id\": \"01k02z4k1p18kv8acbsd7wvt1b\",\n            \"date\": \"2025-07-13T00:00:00.000000Z\",\n            \"description\": null,\n            \"amount\": 13000,\n            \"type\": \"expense\",\n            \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n            \"created_at\": \"2025-07-14T05:40:22.000000Z\",\n            \"updated_at\": \"2025-07-14T05:40:22.000000Z\",\n            \"category\": {\n                \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"name\": \"Makanan/Minuman/Snack\",\n                \"description\": \"Makanan, Minum, Snack\",\n                \"color\": \"#C2E9BD\",\n                \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n            }\n        },\n        {\n            \"id\": \"01k02z45w2jzvt4f1rdnzsd1ra\",\n            \"date\": \"2025-07-13T00:00:00.000000Z\",\n            \"description\": null,\n            \"amount\": 40000,\n            \"type\": \"expense\",\n            \"transactions_category_id\": \"01janeyy0dwqqwfw5e6e14afdc\",\n            \"created_at\": \"2025-07-14T05:40:08.000000Z\",\n            \"updated_at\": \"2025-07-14T05:40:08.000000Z\",\n            \"category\": {\n                \"id\": \"01janeyy0dwqqwfw5e6e14afdc\",\n                \"name\": \"Bensin\",\n                \"description\": \"Bensin\",\n                \"color\": \"#F0AE35\",\n                \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n            }\n        },\n        {\n            \"id\": \"01jzyw9hh69qq5ewy2nqan8cgq\",\n            \"date\": \"2025-07-12T00:00:00.000000Z\",\n            \"description\": null,\n            \"amount\": 20000,\n            \"type\": \"expense\",\n            \"transactions_category_id\": \"01janeyy0dwqqwfw5e6e14afdc\",\n            \"created_at\": \"2025-07-12T15:33:40.000000Z\",\n            \"updated_at\": \"2025-07-12T15:33:40.000000Z\",\n            \"category\": {\n                \"id\": \"01janeyy0dwqqwfw5e6e14afdc\",\n                \"name\": \"Bensin\",\n                \"description\": \"Bensin\",\n                \"color\": \"#F0AE35\",\n                \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n            }\n        },\n        {\n            \"id\": \"01jzjrpqnratxhzmc2nkx6s3vj\",\n            \"date\": \"2025-07-07T00:00:00.000000Z\",\n            \"description\": null,\n            \"amount\": 5000,\n            \"type\": \"expense\",\n            \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n            \"created_at\": \"2025-07-07T22:40:05.000000Z\",\n            \"updated_at\": \"2025-07-07T22:40:05.000000Z\",\n            \"category\": {\n                \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"name\": \"Makanan/Minuman/Snack\",\n                \"description\": \"Makanan, Minum, Snack\",\n                \"color\": \"#C2E9BD\",\n                \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n            }\n        },\n        {\n            \"id\": \"01jzfkfvemajrherjja2cjdbfv\",\n            \"date\": \"2025-07-06T00:00:00.000000Z\",\n            \"description\": null,\n            \"amount\": 42000,\n            \"type\": \"expense\",\n            \"transactions_category_id\": \"01janeyy7k87htadysxfgwdepm\",\n            \"created_at\": \"2025-07-06T17:11:14.000000Z\",\n            \"updated_at\": \"2025-07-06T17:11:14.000000Z\",\n            \"category\": {\n                \"id\": \"01janeyy7k87htadysxfgwdepm\",\n                \"name\": \"Pulsa\",\n                \"description\": \"Pulsa\",\n                \"color\": \"#90A8F0\",\n                \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n            }\n        },\n        {\n            \"id\": \"01jzfkgdbbamnhpaa0m7xezk3g\",\n            \"date\": \"2025-07-03T00:00:00.000000Z\",\n            \"description\": null,\n            \"amount\": 25000,\n            \"type\": \"expense\",\n            \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n            \"created_at\": \"2025-07-06T17:11:32.000000Z\",\n            \"updated_at\": \"2025-07-06T17:11:32.000000Z\",\n            \"category\": {\n                \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"name\": \"Makanan/Minuman/Snack\",\n                \"description\": \"Makanan, Minum, Snack\",\n                \"color\": \"#C2E9BD\",\n                \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n            }\n        }\n    ],\n    \"length\": 9\n}"
+				}
+			]
 		},
 		{
-			"name": "transactions (income)",
+			"name": "transactions (Expense)",
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -2177,7 +2295,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"date\": \"\",\r\n    \"description\": \"Gaji Bulanan\",\r\n    \"amount\": 3000000,\r\n    \"type\": \"income\",\r\n    \"transactions_category_id\": \"01ja5kefwwjh1ryr0bd7rse75x\",\r\n    \"account_id\": \"01ja5hcrh8evrky7h8xfmmbeme\"\r\n}",
+					"raw": "{\r\n    \"date\": \"\",\r\n    \"description\": \"\",\r\n    \"amount\": 50000,\r\n    \"type\": \"expense\",\r\n    \"transactions_category_id\": \"01janeyxtaxf5bgvcvwy3y57w0\",\r\n    \"account_id\": \"01janf43gzs3d2y241r5pr84cp\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -2196,7 +2314,70 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Success: transactions (income)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"date\": \"2025-01-02\",\r\n    \"description\": \"\",\r\n    \"amount\": 50000,\r\n    \"type\": \"expense\",\r\n    \"transactions_category_id\": \"01janeyxtaxf5bgvcvwy3y57w0\",\r\n    \"account_id\": \"4tg5ttge4e56ryr5y5e46ert56\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/transactions",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"transactions"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8000"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.17"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 17 Jul 2025 13:50:19 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"success\": true,\n    \"message\": \"Transaction created successfully\",\n    \"transaction\": {\n        \"id\": \"01k0cacxf44qv2yw7fc749dxs8\",\n        \"date\": \"2025-01-02T00:00:00.000000Z\",\n        \"type\": \"expense\",\n        \"amount\": 50000,\n        \"description\": null,\n        \"category\": {\n            \"id\": \"01janeyxtaxf5bgvcvwy3y57w0\",\n            \"name\": \"Uang Keluar\",\n            \"description\": \"Uang keluar dari rekening\",\n            \"color\": \"#CC0909\",\n            \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n            \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n        },\n        \"account\": {\n            \"id\": \"4tg5ttge4e56ryr5y5e46ert56\",\n            \"name\": \"Pocket B\",\n            \"balance\": -50000,\n            \"description\": null,\n            \"created_at\": \"2024-10-21T00:45:53.000000Z\",\n            \"updated_at\": \"2025-07-17T13:50:19.000000Z\"\n        }\n    }\n}"
+				}
+			]
 		},
 		{
 			"name": "delete transaction",
@@ -2236,7 +2417,412 @@
 					"variable": [
 						{
 							"key": "id",
-							"value": "01ja5skn0zbnzawkxh3ty3gvj4"
+							"value": "01k0efvtbk1d1ybtmvbqvw7gx6"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Success: delete transaction",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/transactions/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"transactions",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "01k0cb2caezwdb9ev525nq3haa"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8000"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.17"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 17 Jul 2025 14:02:39 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"success\": true,\n    \"message\": \"Transaction deleted successfully\",\n    \"data\": {\n        \"id\": \"01k0cb2caezwdb9ev525nq3haa\",\n        \"date\": \"2025-07-17T00:00:00.000000Z\",\n        \"type\": \"expense\",\n        \"amount\": 50000,\n        \"description\": null,\n        \"category\": {\n            \"id\": \"01janeyxtaxf5bgvcvwy3y57w0\",\n            \"name\": \"Uang Keluar\",\n            \"description\": \"Uang keluar dari rekening\",\n            \"color\": \"#CC0909\",\n            \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n            \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n        }\n    }\n}"
+				},
+				{
+					"name": "Error: Transaction not found",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/transactions/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"transactions",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "01k0cb2caezwdb9ev525nq3haa"
+								}
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8000"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.17"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 17 Jul 2025 14:03:20 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"success\": false,\n    \"message\": \"Transaction not found\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Generate stream.report.url",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{authToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"user_id\": \"e93333ae-f996-4f96-8c4a-d6acd9d43dea\",\r\n  \"account_id\": \"01janf43gzs3d2y241r5pr84cp\",\r\n  \"date\": \"2025-01\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/get-streams-url",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"get-streams-url"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Success: Get stream.report.url",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"user_id\": \"e93333ae-f996-4f96-8c4a-d6acd9d43dea\",\r\n  \"account_id\": \"01janf43gzs3d2y241r5pr84cp\",\r\n  \"date\": \"2025-01\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/get-streams-url",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"get-streams-url"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8000"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.17"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 17 Jul 2025 14:27:58 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"success\": true,\n    \"message\": \"Encrypted URL generated successfully\",\n    \"data\": {\n        \"encryptedUrl\": \"eyJpdiI6ImZ0OUxJcENxL2k0MDU2eUJvT016RlE9PSIsInZhbHVlIjoiYWRnaTl0VVprNHRpWlJwd0NucEdKNkh1MmhwY2c1NStwSFVKK1IySkgxa2NXWjhXUmY1eDVBVG5tWnJmK2w5M0hSekJXYysvcVpqbzBDU3lxVUI2aU1LclpvakpVdTA3T1cvaWpFODB6UmdUSFR5VG8rMytUK1BRc3dXT3E1bUpyRkZ0MUMveGw3dDZFbnRiMGhZclUwQ0o1ZkdlRGxVYXJDMURlQ3NuK2Q0PSIsIm1hYyI6IjMxOGRmZDk4MjhjMDBmNWJmYjM1OTE4YzcyYjRjZDZkOWM4ZWVjNTY1Yjk5N2JmY2QwZjc2ZDEwN2Q3OWUwODkiLCJ0YWciOiIifQ==\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Get stream.report",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{authToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"user_id\": \"e93333ae-f996-4f96-8c4a-d6acd9d43dea\",\r\n  \"account_id\": \"01janf43gzs3d2y241r5pr84cp\",\r\n  \"date\": \"2025-01\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/stream-report/:encryptedUrl",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"stream-report",
+						":encryptedUrl"
+					],
+					"variable": [
+						{
+							"key": "encryptedUrl",
+							"value": "eyJpdiI6ImZ0OUxJcENxL2k0MDU2eUJvT016RlE9PSIsInZhbHVlIjoiYWRnaTl0VVprNHRpWlJwd0NucEdKNkh1MmhwY2c1NStwSFVKK1IySkgxa2NXWjhXUmY1eDVBVG5tWnJmK2w5M0hSekJXYysvcVpqbzBDU3lxVUI2aU1LclpvakpVdTA3T1cvaWpFODB6UmdUSFR5VG8rMytUK1BRc3dXT3E1bUpyRkZ0MUMveGw3dDZFbnRiMGhZclUwQ0o1ZkdlRGxVYXJDMURlQ3NuK2Q0PSIsIm1hYyI6IjMxOGRmZDk4MjhjMDBmNWJmYjM1OTE4YzcyYjRjZDZkOWM4ZWVjNTY1Yjk5N2JmY2QwZjc2ZDEwN2Q3OWUwODkiLCJ0YWciOiIifQ==",
+							"description": "Generate url before in '/api/v1/get-streams-url'"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Success: Get stream.report",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"user_id\": \"e93333ae-f996-4f96-8c4a-d6acd9d43dea\",\r\n  \"account_id\": \"01janf43gzs3d2y241r5pr84cp\",\r\n  \"date\": \"2025-01\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/stream-report/:encryptedUrl",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"stream-report",
+								":encryptedUrl"
+							],
+							"variable": [
+								{
+									"key": "encryptedUrl",
+									"value": "eyJpdiI6ImZ0OUxJcENxL2k0MDU2eUJvT016RlE9PSIsInZhbHVlIjoiYWRnaTl0VVprNHRpWlJwd0NucEdKNkh1MmhwY2c1NStwSFVKK1IySkgxa2NXWjhXUmY1eDVBVG5tWnJmK2w5M0hSekJXYysvcVpqbzBDU3lxVUI2aU1LclpvakpVdTA3T1cvaWpFODB6UmdUSFR5VG8rMytUK1BRc3dXT3E1bUpyRkZ0MUMveGw3dDZFbnRiMGhZclUwQ0o1ZkdlRGxVYXJDMURlQ3NuK2Q0PSIsIm1hYyI6IjMxOGRmZDk4MjhjMDBmNWJmYjM1OTE4YzcyYjRjZDZkOWM4ZWVjNTY1Yjk5N2JmY2QwZjc2ZDEwN2Q3OWUwODkiLCJ0YWciOiIifQ==",
+									"description": "Generate url before in '/api/v1/get-streams-url'"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8000"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.17"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 17 Jul 2025 14:31:24 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"success\": true,\n    \"message\": \"Stream report\",\n    \"data\": {\n        \"date\": \"2025-01-17T14:31:24.000000Z\",\n        \"user\": {\n            \"id\": \"e93333ae-f996-4f96-8c4a-d6acd9d43dea\",\n            \"name\": \"Admin User\",\n            \"username\": \"admin\",\n            \"email\": \"admin@mail.com\",\n            \"email_verified_at\": \"2024-10-20T17:17:52.000000Z\",\n            \"profile_photo_path\": \"/assets/img/profile/admin.png\",\n            \"role\": \"admin\",\n            \"created_at\": \"2024-10-20T17:17:52.000000Z\",\n            \"updated_at\": \"2024-10-20T17:17:52.000000Z\",\n            \"deleted_at\": null\n        },\n        \"account\": {\n            \"id\": \"01janf43gzs3d2y241r5pr84cp\",\n            \"name\": \"Pocket 1\",\n            \"balance\": -2483914,\n            \"description\": \"Tabungan Hidup\",\n            \"created_at\": \"2024-10-20T17:20:43.000000Z\",\n            \"updated_at\": \"2025-07-17T14:09:26.000000Z\"\n        },\n        \"total_amount\": {\n            \"income\": 6200000,\n            \"expense\": 4721000,\n            \"total\": 1479000\n        },\n        \"transactions\": [\n            {\n                \"id\": \"01jjy98x7xtv2b26zdxyxajbvq\",\n                \"date\": \"2025-01-31T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 15000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-31T20:37:13.000000Z\",\n                \"updated_at\": \"2025-01-31T20:37:13.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jjxbhv3vp3cay2jcf2dvt2d9\",\n                \"date\": \"2025-01-31T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 15000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-31T11:57:48.000000Z\",\n                \"updated_at\": \"2025-01-31T11:57:48.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jjvj5an42tpwzg8y85180mny\",\n                \"date\": \"2025-01-30T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 15000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-30T19:14:50.000000Z\",\n                \"updated_at\": \"2025-01-30T19:14:50.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jjvbsspze7kqxz4m0sz8pz25\",\n                \"date\": \"2025-01-30T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 29000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-30T17:23:40.000000Z\",\n                \"updated_at\": \"2025-01-30T17:23:40.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jjtwdn2ns44ad9g52mxdy1cb\",\n                \"date\": \"2025-01-30T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 6200000,\n                \"type\": \"income\",\n                \"transactions_category_id\": \"01janeyxqq2ta0pnz1eh6395jb\",\n                \"created_at\": \"2025-01-30T12:54:54.000000Z\",\n                \"updated_at\": \"2025-01-30T12:54:54.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxqq2ta0pnz1eh6395jb\",\n                    \"name\": \"Uang Masuk\",\n                    \"description\": \"Uang masuk ke rekening\",\n                    \"color\": \"#00CC06\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jjtvc8m0qqb8qm8fr55v14q3\",\n                \"date\": \"2025-01-30T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 20000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-30T12:36:40.000000Z\",\n                \"updated_at\": \"2025-01-30T12:36:40.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jjs24m995ahbafhtdjfe5vnb\",\n                \"date\": \"2025-01-29T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 25000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-29T19:56:21.000000Z\",\n                \"updated_at\": \"2025-01-29T19:56:21.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jjs246vae69358n206xar2dw\",\n                \"date\": \"2025-01-29T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 30000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-29T19:56:07.000000Z\",\n                \"updated_at\": \"2025-01-29T19:56:07.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jjs23xfp3fcep88cr4bewcgj\",\n                \"date\": \"2025-01-29T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 23000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-29T19:55:57.000000Z\",\n                \"updated_at\": \"2025-01-29T19:55:57.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jjp40j5nsy98ayt4f5hwyt4x\",\n                \"date\": \"2025-01-28T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 19000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-28T16:31:21.000000Z\",\n                \"updated_at\": \"2025-01-28T16:31:21.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jjnp9xf3faz3mmgx851gk4sp\",\n                \"date\": \"2025-01-28T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 15000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-28T12:31:48.000000Z\",\n                \"updated_at\": \"2025-01-28T12:31:48.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jjmww6fvr4404rj6qqgcdj0k\",\n                \"date\": \"2025-01-28T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 12000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-28T05:07:24.000000Z\",\n                \"updated_at\": \"2025-01-28T05:07:24.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jjmt7964nawp1szvmzw1mm4r\",\n                \"date\": \"2025-01-28T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 50000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxy57pbbacg036x7b5pw\",\n                \"created_at\": \"2025-01-28T04:21:01.000000Z\",\n                \"updated_at\": \"2025-01-28T04:21:01.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxy57pbbacg036x7b5pw\",\n                    \"name\": \"Transportasi\",\n                    \"description\": \"Transportasi\",\n                    \"color\": \"#F0E131\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jjhpr06m6b5mawevgh2g02af\",\n                \"date\": \"2025-01-26T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 14000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-26T23:22:31.000000Z\",\n                \"updated_at\": \"2025-01-26T23:22:31.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jjhpqq4171en0wcejhdfnt36\",\n                \"date\": \"2025-01-26T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 25000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyyp3h87080a70r6yna5a\",\n                \"created_at\": \"2025-01-26T23:22:22.000000Z\",\n                \"updated_at\": \"2025-01-26T23:22:22.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyyp3h87080a70r6yna5a\",\n                    \"name\": \"Hiburan\",\n                    \"description\": \"Hiburan\",\n                    \"color\": \"#0BF0C8\",\n                    \"created_at\": \"2024-10-20T17:17:54.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:54.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jjh4aadya13nyp7xthbh5v0a\",\n                \"date\": \"2025-01-26T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 20000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyy7k87htadysxfgwdepm\",\n                \"created_at\": \"2025-01-26T18:00:29.000000Z\",\n                \"updated_at\": \"2025-01-26T18:00:29.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyy7k87htadysxfgwdepm\",\n                    \"name\": \"Pulsa\",\n                    \"description\": \"Pulsa\",\n                    \"color\": \"#90A8F0\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jjgk4h8smhvyp4jmskepgzen\",\n                \"date\": \"2025-01-26T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 15000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-26T13:00:13.000000Z\",\n                \"updated_at\": \"2025-01-26T13:00:13.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jjgk46ra6rwq9vqmc2x9vc35\",\n                \"date\": \"2025-01-26T00:00:00.000000Z\",\n                \"description\": \"Potong rambut\",\n                \"amount\": 20000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyzeth7z87kax0v72ebw1\",\n                \"created_at\": \"2025-01-26T13:00:03.000000Z\",\n                \"updated_at\": \"2025-01-26T13:00:03.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyzeth7z87kax0v72ebw1\",\n                    \"name\": \"Lainnya\",\n                    \"description\": \"Pengeluaran lain-lain\",\n                    \"color\": \"#CDBDA9\",\n                    \"created_at\": \"2024-10-20T17:17:55.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:55.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jjgk3bdvg2chjmrmeb1yasp9\",\n                \"date\": \"2025-01-26T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 97000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyyt2g15jg0vba8md0rhf\",\n                \"created_at\": \"2025-01-26T12:59:35.000000Z\",\n                \"updated_at\": \"2025-01-26T12:59:35.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyyt2g15jg0vba8md0rhf\",\n                    \"name\": \"Belanja\",\n                    \"description\": \"Belanja\",\n                    \"color\": \"#007CF0\",\n                    \"created_at\": \"2024-10-20T17:17:54.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:54.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jje3rt8dpfrv2pn413ychykv\",\n                \"date\": \"2025-01-25T00:00:00.000000Z\",\n                \"description\": \"Tiket keteta SBY-JKT\",\n                \"amount\": 427000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyybmjeg70ywpq1qj6wfa\",\n                \"created_at\": \"2025-01-25T13:53:12.000000Z\",\n                \"updated_at\": \"2025-01-25T13:53:12.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyybmjeg70ywpq1qj6wfa\",\n                    \"name\": \"Pembayaran\",\n                    \"description\": \"Pembayaran\",\n                    \"color\": \"#C71CF0\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jjdfp9aqhjppcr73cew3gs92\",\n                \"date\": \"2025-01-25T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 15000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxy57pbbacg036x7b5pw\",\n                \"created_at\": \"2025-01-25T08:02:17.000000Z\",\n                \"updated_at\": \"2025-01-25T08:02:17.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxy57pbbacg036x7b5pw\",\n                    \"name\": \"Transportasi\",\n                    \"description\": \"Transportasi\",\n                    \"color\": \"#F0E131\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jjbw5q52279g8x8pgzvk0x88\",\n                \"date\": \"2025-01-24T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 44000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxy57pbbacg036x7b5pw\",\n                \"created_at\": \"2025-01-24T17:01:57.000000Z\",\n                \"updated_at\": \"2025-01-24T17:01:57.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxy57pbbacg036x7b5pw\",\n                    \"name\": \"Transportasi\",\n                    \"description\": \"Transportasi\",\n                    \"color\": \"#F0E131\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jjbe42syjthw7p7t2sabkrwx\",\n                \"date\": \"2025-01-24T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 25000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-24T12:56:23.000000Z\",\n                \"updated_at\": \"2025-01-24T12:56:23.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jjb9sqck0sfwwst0h49983x0\",\n                \"date\": \"2025-01-23T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 24000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyyzaj9spc0c5csgcdpe0\",\n                \"created_at\": \"2025-01-24T11:40:50.000000Z\",\n                \"updated_at\": \"2025-01-24T11:40:50.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyyzaj9spc0c5csgcdpe0\",\n                    \"name\": \"Laundry\",\n                    \"description\": \"Laundry\",\n                    \"color\": \"#F06EBA\",\n                    \"created_at\": \"2024-10-20T17:17:54.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:54.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jj9adjrt9chyqtmva430vt34\",\n                \"date\": \"2025-01-23T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 13000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-23T17:13:12.000000Z\",\n                \"updated_at\": \"2025-01-23T17:13:12.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jj96yw6zt3kvdj1nbey426gd\",\n                \"date\": \"2025-01-23T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 35000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-23T16:12:44.000000Z\",\n                \"updated_at\": \"2025-01-23T16:12:44.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jj8t687zcgn8bx3qtzhtkda6\",\n                \"date\": \"2025-01-23T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 25000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-23T12:29:34.000000Z\",\n                \"updated_at\": \"2025-01-23T12:29:34.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jj8671f2m538360dqs5137s6\",\n                \"date\": \"2025-01-23T00:00:00.000000Z\",\n                \"description\": \"Parfum\",\n                \"amount\": 120000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyybmjeg70ywpq1qj6wfa\",\n                \"created_at\": \"2025-01-23T06:40:29.000000Z\",\n                \"updated_at\": \"2025-01-23T06:40:29.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyybmjeg70ywpq1qj6wfa\",\n                    \"name\": \"Pembayaran\",\n                    \"description\": \"Pembayaran\",\n                    \"color\": \"#C71CF0\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jj6kskn3nd3makg49b644jez\",\n                \"date\": \"2025-01-22T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 13000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-22T15:59:20.000000Z\",\n                \"updated_at\": \"2025-01-22T15:59:20.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jj45bst2j2s2zz3dca9zy28x\",\n                \"date\": \"2025-01-21T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 26000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-21T17:08:38.000000Z\",\n                \"updated_at\": \"2025-01-21T17:08:38.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jj3n7acc89gq6csab3gf4432\",\n                \"date\": \"2025-01-21T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 15000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-21T12:26:34.000000Z\",\n                \"updated_at\": \"2025-01-21T12:26:34.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jj1xcre5e1v9hzm738zjn3e1\",\n                \"date\": \"2025-01-20T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 16000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-20T20:10:52.000000Z\",\n                \"updated_at\": \"2025-01-20T20:10:52.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jj13z8kzdezeh8xmv4qnhe6f\",\n                \"date\": \"2025-01-20T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 20000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-20T12:46:36.000000Z\",\n                \"updated_at\": \"2025-01-20T12:46:36.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jhzbbnqx801331sw19edf9pe\",\n                \"date\": \"2025-01-19T00:00:00.000000Z\",\n                \"description\": \"Tiket bus jkt-sby\",\n                \"amount\": 390000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyybmjeg70ywpq1qj6wfa\",\n                \"created_at\": \"2025-01-19T20:17:13.000000Z\",\n                \"updated_at\": \"2025-01-19T20:17:13.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyybmjeg70ywpq1qj6wfa\",\n                    \"name\": \"Pembayaran\",\n                    \"description\": \"Pembayaran\",\n                    \"color\": \"#C71CF0\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jhyx0v0v5kvadxmkpvm17yya\",\n                \"date\": \"2025-01-19T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 28000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-19T16:06:38.000000Z\",\n                \"updated_at\": \"2025-01-19T16:06:38.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jhyj0pj3xdsxdd7h7asz58w4\",\n                \"date\": \"2025-01-19T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 14000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-19T12:54:19.000000Z\",\n                \"updated_at\": \"2025-01-19T12:54:19.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jhyj0fm2vccmbfj359mb70yg\",\n                \"date\": \"2025-01-19T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 30000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyyzaj9spc0c5csgcdpe0\",\n                \"created_at\": \"2025-01-19T12:54:12.000000Z\",\n                \"updated_at\": \"2025-01-19T12:54:12.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyyzaj9spc0c5csgcdpe0\",\n                    \"name\": \"Laundry\",\n                    \"description\": \"Laundry\",\n                    \"color\": \"#F06EBA\",\n                    \"created_at\": \"2024-10-20T17:17:54.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:54.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jhy4xz4d8m32prqjhj2079hh\",\n                \"date\": \"2025-01-19T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 25000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-19T09:05:38.000000Z\",\n                \"updated_at\": \"2025-01-19T09:05:38.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jhwrtgsgjnq2dabqfbahn8ev\",\n                \"date\": \"2025-01-18T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 22000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-18T20:14:48.000000Z\",\n                \"updated_at\": \"2025-01-18T20:14:48.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jhw7cs7phv8t0894yc8tn1s9\",\n                \"date\": \"2025-01-18T00:00:00.000000Z\",\n                \"description\": \"Perlengkapan & Snack\",\n                \"amount\": 150000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyyt2g15jg0vba8md0rhf\",\n                \"created_at\": \"2025-01-18T15:10:12.000000Z\",\n                \"updated_at\": \"2025-01-18T15:10:12.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyyt2g15jg0vba8md0rhf\",\n                    \"name\": \"Belanja\",\n                    \"description\": \"Belanja\",\n                    \"color\": \"#007CF0\",\n                    \"created_at\": \"2024-10-20T17:17:54.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:54.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jhvnfecxcthmy4skc4smyx81\",\n                \"date\": \"2025-01-18T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 32000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-18T09:57:05.000000Z\",\n                \"updated_at\": \"2025-01-18T09:57:05.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jhtnw77dpjbgq7b91ab99mk7\",\n                \"date\": \"2025-01-18T00:00:00.000000Z\",\n                \"description\": \"Belanja snack\",\n                \"amount\": 43000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-18T00:44:49.000000Z\",\n                \"updated_at\": \"2025-01-18T00:44:49.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jht2ex584j2px5cmgzb80v4e\",\n                \"date\": \"2025-01-17T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 13000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-17T19:05:30.000000Z\",\n                \"updated_at\": \"2025-01-17T19:05:30.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jhscxsejz7yrgeh8qds1rkrq\",\n                \"date\": \"2025-01-17T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 20000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-17T12:49:09.000000Z\",\n                \"updated_at\": \"2025-01-17T12:49:09.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jhq3j4nxdjsgw53ptm5fwng2\",\n                \"date\": \"2025-01-16T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 19000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-16T15:27:01.000000Z\",\n                \"updated_at\": \"2025-01-16T15:27:01.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jhnfbkmkyr5qhvbdhvq0sqbn\",\n                \"date\": \"2025-01-16T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 36000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-16T00:14:41.000000Z\",\n                \"updated_at\": \"2025-01-16T00:14:41.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jhmgt36a8003qw6wnahkbzwg\",\n                \"date\": \"2025-01-15T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 19000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-15T15:20:50.000000Z\",\n                \"updated_at\": \"2025-01-15T15:20:50.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jhnfcakrcj1dem8v3qa8p157\",\n                \"date\": \"2025-01-14T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 31000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-16T00:15:05.000000Z\",\n                \"updated_at\": \"2025-01-16T00:15:05.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jhhy6echv1bdahkgnpg2ww08\",\n                \"date\": \"2025-01-14T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 16000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-14T15:17:03.000000Z\",\n                \"updated_at\": \"2025-01-14T15:17:03.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jhfd6qtmcpje6b5306m87qbg\",\n                \"date\": \"2025-01-13T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 24000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-13T15:41:38.000000Z\",\n                \"updated_at\": \"2025-01-13T15:41:38.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jhczx76rv0ptytp43f60gntm\",\n                \"date\": \"2025-01-12T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 99000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyy4yr63abrd239303c0d\",\n                \"created_at\": \"2025-01-12T10:10:46.000000Z\",\n                \"updated_at\": \"2025-01-12T10:10:46.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyy4yr63abrd239303c0d\",\n                    \"name\": \"Listrik\",\n                    \"description\": \"Tagihan listrik\",\n                    \"color\": \"#F0E668\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jhckd90z3ysxph7vx1cjfqh0\",\n                \"date\": \"2025-01-12T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 55000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-12T06:32:20.000000Z\",\n                \"updated_at\": \"2025-01-12T06:32:20.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jhanyz22gba6tg98jsn17e9j\",\n                \"date\": \"2025-01-11T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 98000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyyt2g15jg0vba8md0rhf\",\n                \"created_at\": \"2025-01-11T12:38:28.000000Z\",\n                \"updated_at\": \"2025-01-11T12:38:28.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyyt2g15jg0vba8md0rhf\",\n                    \"name\": \"Belanja\",\n                    \"description\": \"Belanja\",\n                    \"color\": \"#007CF0\",\n                    \"created_at\": \"2024-10-20T17:17:54.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:54.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jha5zphx9x9hgj0h9fgd4ba0\",\n                \"date\": \"2025-01-11T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 27000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyyzaj9spc0c5csgcdpe0\",\n                \"created_at\": \"2025-01-11T07:59:15.000000Z\",\n                \"updated_at\": \"2025-01-11T07:59:15.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyyzaj9spc0c5csgcdpe0\",\n                    \"name\": \"Laundry\",\n                    \"description\": \"Laundry\",\n                    \"color\": \"#F06EBA\",\n                    \"created_at\": \"2024-10-20T17:17:54.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:54.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jha4sxy0zz5v0rsdd1dgjvt0\",\n                \"date\": \"2025-01-11T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 29000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-11T07:38:37.000000Z\",\n                \"updated_at\": \"2025-01-11T07:38:37.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jh9hqwrq79xamps603ch17s3\",\n                \"date\": \"2025-01-11T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 23000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-11T02:05:28.000000Z\",\n                \"updated_at\": \"2025-01-11T02:05:28.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jh9hqprv3d003p9srbj3btzn\",\n                \"date\": \"2025-01-11T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 1500000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyywp3cq0ysda0q4daxw4\",\n                \"created_at\": \"2025-01-11T02:05:22.000000Z\",\n                \"updated_at\": \"2025-01-11T02:05:22.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyywp3cq0ysda0q4daxw4\",\n                    \"name\": \"Kos\",\n                    \"description\": \"Kos\",\n                    \"color\": \"#9A5AEF\",\n                    \"created_at\": \"2024-10-20T17:17:54.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:54.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jhamy79qjs1nwf6a6p2bee61\",\n                \"date\": \"2025-01-10T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 31000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyyt2g15jg0vba8md0rhf\",\n                \"created_at\": \"2025-01-11T12:20:35.000000Z\",\n                \"updated_at\": \"2025-01-11T12:20:35.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyyt2g15jg0vba8md0rhf\",\n                    \"name\": \"Belanja\",\n                    \"description\": \"Belanja\",\n                    \"color\": \"#007CF0\",\n                    \"created_at\": \"2024-10-20T17:17:54.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:54.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jh9hq738j0s1j9sbs7thfyk0\",\n                \"date\": \"2025-01-10T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 15000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-11T02:05:06.000000Z\",\n                \"updated_at\": \"2025-01-11T02:05:06.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jh77ex77e7sbnrs12z6ftrpw\",\n                \"date\": \"2025-01-10T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 38000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-10T04:27:19.000000Z\",\n                \"updated_at\": \"2025-01-10T04:27:19.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jh77ekf6w1swq3djb7pgs0yw\",\n                \"date\": \"2025-01-09T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 28000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-10T04:27:09.000000Z\",\n                \"updated_at\": \"2025-01-10T04:27:09.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jh77nv8eah5p7v886ysch4w4\",\n                \"date\": \"2025-01-08T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 23000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-10T04:31:06.000000Z\",\n                \"updated_at\": \"2025-01-10T04:31:06.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jh77f9rgd28s78jr4jvr08t9\",\n                \"date\": \"2025-01-08T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 13000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-10T04:27:31.000000Z\",\n                \"updated_at\": \"2025-01-10T04:27:31.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jh77eaq156gj5q0xwfxtjn6f\",\n                \"date\": \"2025-01-08T00:00:00.000000Z\",\n                \"description\": \"Makanan\",\n                \"amount\": 41000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyyt2g15jg0vba8md0rhf\",\n                \"created_at\": \"2025-01-10T04:27:00.000000Z\",\n                \"updated_at\": \"2025-01-10T04:27:00.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyyt2g15jg0vba8md0rhf\",\n                    \"name\": \"Belanja\",\n                    \"description\": \"Belanja\",\n                    \"color\": \"#007CF0\",\n                    \"created_at\": \"2024-10-20T17:17:54.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:54.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jha5pqa563h25ewxftf08bbc\",\n                \"date\": \"2025-01-07T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 34000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyyzaj9spc0c5csgcdpe0\",\n                \"created_at\": \"2025-01-11T07:54:21.000000Z\",\n                \"updated_at\": \"2025-01-11T07:54:21.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyyzaj9spc0c5csgcdpe0\",\n                    \"name\": \"Laundry\",\n                    \"description\": \"Laundry\",\n                    \"color\": \"#F06EBA\",\n                    \"created_at\": \"2024-10-20T17:17:54.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:54.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jh77h8v6j19gt7zzn0k3vnqy\",\n                \"date\": \"2025-01-07T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 15000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-10T04:28:36.000000Z\",\n                \"updated_at\": \"2025-01-10T04:28:36.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jh77tz87gv9fvt5tgdb4ptcr\",\n                \"date\": \"2025-01-05T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 91000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyyt2g15jg0vba8md0rhf\",\n                \"created_at\": \"2025-01-10T04:33:54.000000Z\",\n                \"updated_at\": \"2025-01-10T04:33:54.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyyt2g15jg0vba8md0rhf\",\n                    \"name\": \"Belanja\",\n                    \"description\": \"Belanja\",\n                    \"color\": \"#007CF0\",\n                    \"created_at\": \"2024-10-20T17:17:54.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:54.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jh77t3p1mjd2nwvtqxag3v2z\",\n                \"date\": \"2025-01-05T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 25000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-10T04:33:26.000000Z\",\n                \"updated_at\": \"2025-01-10T04:33:26.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jh77skpzm6ya34bsyknhrtx1\",\n                \"date\": \"2025-01-05T00:00:00.000000Z\",\n                \"description\": \"degan\",\n                \"amount\": 29000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-10T04:33:09.000000Z\",\n                \"updated_at\": \"2025-01-10T04:33:09.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jh77s6kyk85e3xcaxhdfznhb\",\n                \"date\": \"2025-01-05T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 27000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-10T04:32:56.000000Z\",\n                \"updated_at\": \"2025-01-10T04:32:56.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jgqz7mc49xz4fzf5j7h5ce21\",\n                \"date\": \"2025-01-04T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 45000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-04T06:14:55.000000Z\",\n                \"updated_at\": \"2025-01-04T06:14:55.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jgqz7dd5emh7cfbmr8j6f0b9\",\n                \"date\": \"2025-01-04T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 24000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-04T06:14:48.000000Z\",\n                \"updated_at\": \"2025-01-04T06:14:48.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jgnm92k50c50r28yr4c2mp1s\",\n                \"date\": \"2025-01-03T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 19000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-03T08:24:59.000000Z\",\n                \"updated_at\": \"2025-01-03T08:24:59.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jgncayg9sajf4jtdk6awxjf7\",\n                \"date\": \"2025-01-03T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 10000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-03T06:06:12.000000Z\",\n                \"updated_at\": \"2025-01-03T06:06:12.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jgncahn63c5xfjtq3kbtpj1j\",\n                \"date\": \"2025-01-03T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 19000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-03T06:05:59.000000Z\",\n                \"updated_at\": \"2025-01-03T06:05:59.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jgn1qkj061mb00ww3z4bx8yp\",\n                \"date\": \"2025-01-03T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 10000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-03T03:00:52.000000Z\",\n                \"updated_at\": \"2025-01-03T03:00:52.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jgk29f4jz293kqktv6d2s1px\",\n                \"date\": \"2025-01-02T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 18000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-02T08:32:09.000000Z\",\n                \"updated_at\": \"2025-01-02T08:32:09.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jggxnyhz6133ndfgt8abhsxn\",\n                \"date\": \"2025-01-01T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 28000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyyzaj9spc0c5csgcdpe0\",\n                \"created_at\": \"2025-01-01T12:33:06.000000Z\",\n                \"updated_at\": \"2025-01-01T12:33:06.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyyzaj9spc0c5csgcdpe0\",\n                    \"name\": \"Laundry\",\n                    \"description\": \"Laundry\",\n                    \"color\": \"#F06EBA\",\n                    \"created_at\": \"2024-10-20T17:17:54.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:54.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jgg65wb0hfyy467gh0g9jx3m\",\n                \"date\": \"2025-01-01T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 28000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-01T05:42:22.000000Z\",\n                \"updated_at\": \"2025-01-01T05:42:22.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jgg65mevz30kyfggrfaehw74\",\n                \"date\": \"2025-01-01T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 35000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2025-01-01T05:42:14.000000Z\",\n                \"updated_at\": \"2025-01-01T05:42:14.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jgg07thgtmgbc7nrpwrarhy3\",\n                \"date\": \"2025-01-01T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 30000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyy7k87htadysxfgwdepm\",\n                \"created_at\": \"2025-01-01T03:58:35.000000Z\",\n                \"updated_at\": \"2025-01-01T03:58:35.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyy7k87htadysxfgwdepm\",\n                    \"name\": \"Pulsa\",\n                    \"description\": \"Pulsa\",\n                    \"color\": \"#90A8F0\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            },\n            {\n                \"id\": \"01jgf3e3vsgycfw1xvqdet7x3b\",\n                \"date\": \"2025-01-01T00:00:00.000000Z\",\n                \"description\": null,\n                \"amount\": 25000,\n                \"type\": \"expense\",\n                \"transactions_category_id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                \"created_at\": \"2024-12-31T19:35:12.000000Z\",\n                \"updated_at\": \"2024-12-31T19:35:12.000000Z\",\n                \"category\": {\n                    \"id\": \"01janeyxvwds3eqnfvm0bqsgn2\",\n                    \"name\": \"Makanan/Minuman/Snack\",\n                    \"description\": \"Makanan, Minum, Snack\",\n                    \"color\": \"#C2E9BD\",\n                    \"created_at\": \"2024-10-20T17:17:53.000000Z\",\n                    \"updated_at\": \"2024-10-20T17:17:53.000000Z\"\n                }\n            }\n        ]\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "export Report",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{authToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/v1/account/:account_id/report/download?date=2025-01",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"account",
+						":account_id",
+						"report",
+						"download"
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "2025-01",
+							"description": "by default all time"
+						}
+					],
+					"variable": [
+						{
+							"key": "account_id",
+							"value": "01janf43gzs3d2y241r5pr84cp"
 						}
 					]
 				}

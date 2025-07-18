@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Resources\AccountResource;
 
 class AccountController extends Controller
 {
@@ -22,7 +23,7 @@ class AccountController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'List of user accounts',
-                'data' => $accounts,
+                'data' => AccountResource::collection($accounts),
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
@@ -39,7 +40,7 @@ class AccountController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Account details',
-                'data' => $account,
+                'data' => AccountResource::make($account),
             ], 200);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return response()->json([
@@ -81,7 +82,7 @@ class AccountController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Account created successfully',
-                'data' => $account->load('users'),
+                'data' => AccountResource::make($account),
             ], 201);
         } catch (\Throwable $th) {
             return response()->json([
@@ -95,7 +96,7 @@ class AccountController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:100',
-            'balance' => 'numeric',
+            'balance' => 'prohibited',
             'description' => 'required|string|max:100',
         ]);
 
@@ -113,7 +114,7 @@ class AccountController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Account updated successfully',
-                'data' => $account,
+                'data' => AccountResource::make($account),
             ], 200);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return response()->json([
@@ -131,12 +132,12 @@ class AccountController extends Controller
     public function destroy(String $account_id): JsonResponse
     {
         try {
-            $account = Account::findOrFail($account_id);
+            $account = Account::with('users')->findOrFail($account_id);
             $account->delete();
             return response()->json([
                 'success' => true,
                 'message' => 'Account deleted successfully',
-                'data' => $account,
+                'data' => AccountResource::make($account),
             ], 200);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return response()->json([

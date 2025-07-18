@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\User;
 use App\Models\Account;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
@@ -9,10 +10,11 @@ use Illuminate\Http\JsonResponse;
 use App\Models\AccountTransaction;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Resources\TransactionResource;
+use App\Http\Resources\TransactionCreateResource;
 
 class TransactionController extends Controller
 {
@@ -90,7 +92,7 @@ class TransactionController extends Controller
                     'daily_expense' => $dailyExpense,
                     'weekly_expense' => $weeklyExpense
                 ],
-                'data' => $transactions,
+                'data' => TransactionResource::collection($transactions),
                 'length' => $transactions->count(),
             ], 200);
         } catch (\Throwable $th) {
@@ -168,16 +170,7 @@ class TransactionController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Transaction created successfully',
-                'transaction' => [
-                    'id' => $transaction->id,
-                    'date' => $transaction->date,
-                    'type' => $transaction->type,
-                    'amount' => $transaction->amount,
-                    'description' => $transaction->description,
-                    'category' => $transaction->category,
-                    'account' => $accountTransaction->account,
-                    'ending_balance' => $accountTransaction->ending_balance,
-                ]
+                'transaction' => TransactionCreateResource::make($transaction, $accountTransaction),
             ], 201);
         } catch (\Throwable $th) {
             return response()->json([
@@ -225,14 +218,7 @@ class TransactionController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Transaction deleted successfully',
-                'data' => [
-                    'id' => $transaction->id,
-                    'date' => $transaction->date,
-                    'type' => $transaction->type,
-                    'amount' => $transaction->amount,
-                    'description' => $transaction->description,
-                    'category' => $transaction->category,
-                ]
+                'data' => TransactionResource::make($transaction),
             ], 200);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return response()->json([
